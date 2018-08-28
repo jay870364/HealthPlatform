@@ -1,0 +1,130 @@
+﻿{
+  "Result": [
+    {
+      "Type": "0",
+      "Level": "低血壓",
+      "LowRange": "0",
+      "HightRange": "99",
+      "Message": ""
+    },
+    {
+      "Type": "0",
+      "Level": "正常血壓",
+      "LowRange": "99",
+      "HightRange": "140",
+      "Message": ""
+    },
+    {
+      "Type": "0",
+      "Level": "輕度高血壓",
+      "LowRange": "140",
+      "HightRange": "160",
+      "Message": ""
+    },
+    {
+      "Type": "0",
+      "Level": "中度高血壓",
+      "LowRange": "160",
+      "HightRange": "180",
+      "Message": ""
+    },
+    {
+      "Type": "0",
+      "Level": "重度高血壓",
+      "LowRange": "180",
+      "HightRange": "999",
+      "Message": ""
+    },
+    {
+      "Type": "1",
+      "Level": "低血壓",
+      "LowRange": "0",
+      "HightRange": "99",
+      "Message": ""
+    },
+    {
+      "Type": "1",
+      "Level": "正常血壓",
+      "LowRange": "99",
+      "HightRange": "140",
+      "Message": ""
+    },
+    {
+      "Type": "1",
+      "Level": "輕度高血壓",
+      "LowRange": "140",
+      "HightRange": "160",
+      "Message": ""
+    },
+    {
+      "Type": "1",
+      "Level": "中度高血壓",
+      "LowRange": "160",
+      "HightRange": "180",
+      "Message": ""
+    },
+    {
+      "Type": "1",
+      "Level": "重度高血壓",
+      "LowRange": "180",
+      "HightRange": "999",
+      "Message": ""
+    },
+    {
+      "Type": "2",
+      "Level": "偏慢",
+      "LowRange": "0",
+      "HightRange": "64",
+      "Message": "血壓偏低, 請適量運動，促進血液循環，並補充富含鐵質、葉酸、維生素 B12 的食物。"
+    },
+    {
+      "Type": "2",
+      "Level": "正常",
+      "LowRange": "64",
+      "HightRange": "80",
+      "Message": "血壓正常, 請繼續保持。"
+    },
+    {
+      "Type": "2",
+      "Level": "偏快",
+      "LowRange": "80",
+      "HightRange": "95",
+      "Message": "血壓偏高, 請放鬆心情，別太緊張. 適量的運動和補充蔬果，有助於血壓的降低。"
+    },
+    {
+      "Type": "2",
+      "Level": "太快",
+      "LowRange": "95",
+      "HightRange": "200",
+      "Message": "血壓過高, 請減少油膩和高鹽類食物的過量攝取，並找專科醫師檢查，定期追蹤觀察與治療。"
+    },
+    {
+      "Type": "3",
+      "Level": "",
+      "LowRange": "0",
+      "HightRange": "18.5",
+      "Message": "過輕喔~"
+    },
+    {
+      "Type": "3",
+      "Level": "",
+      "LowRange": "18.5",
+      "HightRange": "24",
+      "Message": "正常"
+    },
+    {
+      "Type": "3",
+      "Level": "",
+      "LowRange": "24",
+      "HightRange": "27",
+      "Message": "過重了喔~"
+    },
+    {
+      "Type": "3",
+      "Level": "",
+      "LowRange": "27",
+      "HightRange": "999",
+      "Message": "肥胖, 該減肥了~~~"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-﻿using Bossinfo.HealthPlatform.Models;
+﻿using Bossinfo.HealthPlatform.Models.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,10 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bossinfo.HealthPlatform.Models.Entity;
+using Bossinfo.HealthPlatform.UtilityTools;
+using ThoughtWorks.QRCode.Codec;
+using System.Text.RegularExpressions;
 
 namespace Bossinfo.HealthPlatform
 {
@@ -17,30 +21,85 @@ namespace Bossinfo.HealthPlatform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //var dbContext = new DBService.HealthPaltformContext();
 
+            var plainText = GetDocumentContents(new HttpRequestWrapper(this.Request));
+            var MIData = JsonConvert.DeserializeObject<MIData>(plainText);
 
-            var str = GetDocumentContents(new HttpRequestWrapper(this.Request));
-            var dataResult = JsonConvert.DeserializeObject<Minfo>(str);
+            var dbIDNo = DBService.MemberInfo.QueryMemberInfoByIDNo(MIData.Member_IDNo);
+            //if (dataResult.Member_IDNo == "A000002")
 
-            var x = "";//去取回ID比較
-                       //if (dataResult.Member_IDNo == "A000002")
-            if (true)
+            try
             {
-                //儲存該筆資料
+                if (string.IsNullOrEmpty(dbIDNo))
+                {
+                    //儲存該筆資料
+                    var memberInfo = new MemberInfo();
+                    //取得系統ID
+                    var tmpID = ToolLibs.GetDateTimeNowDefaultString();
 
+                    #region MemberInfo
+
+                    memberInfo.ID = tmpID;
+                    memberInfo.IDNo = MIData.Member_IDNo;
+                    memberInfo.Name = "Test";
+                    memberInfo.Genger = 0;
+                    memberInfo.BDate = DateTime.Now;
+                    memberInfo.Tel = "";
+                    memberInfo.Mobile = "";
+                    memberInfo.Email = "";
+                    memberInfo.Fax = "";
+                    memberInfo.Occupation = "";
+                    memberInfo.CreateDate = DateTime.Now;
+
+                    #endregion
+
+                    DBService.MemberInfo.InsertMemberInfo(memberInfo);
+                }
+
+                var measuerInfo = new MeasureInfo();
+
+                measuerInfo.MemberIDNo = MIData.Member_IDNo;
+                measuerInfo.MIData = Regex.Replace(plainText, @"\n|\r", "");
+                measuerInfo.MIDate = DateTime.Now;
+
+                //
+                var measureInfoID = DBService.MeasureInfo.InsertMeasureInfo(measuerInfo).ToString();
+
+                //將網址帶入的ID加密
+                var encryptID = ToolLibs.EncryptDES(measureInfoID, Config.DESKey, Config.DESIV);
+
+                //組出網址
+                var encryptCodeURL = $"{Config.BaseURL}MInfo.aspx?UID={encryptID}";
+                System.Diagnostics.Debug.WriteLine($"IMVS\t{encryptCodeURL}");
+
+                if (encryptCodeURL == "")
+                {
+                    Response.Write(JsonConvert.SerializeObject(new { ResultCode = 404, ErrorMessage = "轉換失敗" }));
+                }
+                else
+                {
+                    Response.Write(JsonConvert.SerializeObject(new { ResultCode = 200, Url = encryptCodeURL }));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //DBservice 新增一筆ID
-                //加入新的檢測資料
+                Response.Write(JsonConvert.SerializeObject(new { ResultCode = 404, ErrorMessage = $"{ex.ToString()}" }));
             }
 
-            Response.Write("");
+
+
+
+            ////轉換成QRCode
+            //var qrCodeStream = QRCodeGen(qrCodeURL);
+            //Response.ClearContent();
+            //Response.ContentType = "image/Png";
+            //Response.BinaryWrite(qrCodeStream.ToArray());
         }
 
 
         /// <summary>
-        /// 從阿諾那取得JSON，回傳網址
+        /// 取得POST body context內的 JSON
         /// </summary>
         /// <param name="Request"></param>
         /// <returns></returns>
@@ -57,5 +116,26 @@ namespace Bossinfo.HealthPlatform
             return documentContents;
         }
 
+        //private MemoryStream QRCodeGen(string url)
+        //{
+        //    if (!string.IsNullOrEmpty(url))
+        //    {
+        //        QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
+        //        qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+        //        qrCodeEncoder.QRCodeScale = 4;
+        //        qrCodeEncoder.QRCodeVersion = 8;
+        //        qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+        //        System.Drawing.Bitmap image = qrCodeEncoder.Encode(url);
+        //        System.IO.MemoryStream MStream = new System.IO.MemoryStream();
+        //        image.Save(MStream, System.Drawing.Imaging.ImageFormat.Png);
+        //        //context.Response.ClearContent();
+        //        //context.Response.ContentType = "image/Png";
+        //        return MStream;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
     }
 }

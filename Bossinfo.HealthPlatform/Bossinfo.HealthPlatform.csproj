@@ -47,10 +47,31 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MessagingToolkit.Core, Version=1.8.3.0, Culture=neutral, PublicKeyToken=4d44dd7196d3c1ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.1.8.3\lib\net40\MessagingToolkit.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.MMS, Version=1.8.3.0, Culture=neutral, PublicKeyToken=4d44dd7196d3c1ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.1.8.3\lib\net40\MessagingToolkit.MMS.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.Pdu, Version=1.8.3.0, Culture=neutral, PublicKeyToken=4d44dd7196d3c1ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.1.8.3\lib\net40\MessagingToolkit.Pdu.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.UI, Version=1.8.3.0, Culture=neutral, PublicKeyToken=4d44dd7196d3c1ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.1.8.3\lib\net40\MessagingToolkit.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.Wap, Version=1.8.3.0, Culture=neutral, PublicKeyToken=4d44dd7196d3c1ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.1.8.3\lib\net40\MessagingToolkit.Wap.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.9\lib\net40-client\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,9 +88,22 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\ResultRemark.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <Content Include="Content\css\Default.css" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <None Include="Web.Debug.config">
@@ -94,10 +128,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\css\default.css">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>default.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -163,16 +193,19 @@
       <DependentUpon>MInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Content\css\default.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>default.css</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bossinfo.HealthPlatform.DBService\Bossinfo.HealthPlatform.DBService.csproj">
+      <Project>{6eff87e8-018c-48c7-b455-dacf5e837140}</Project>
+      <Name>Bossinfo.HealthPlatform.DBService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bossinfo.HealthPlatform.Models\Bossinfo.HealthPlatform.Models.csproj">
       <Project>{c561ef48-3144-4c8e-8821-c0ddad8588f4}</Project>
       <Name>Bossinfo.HealthPlatform.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bossinfo.HealthPlatform.UtilityTools\Bossinfo.HealthPlatform.UtilityTools.csproj">
+      <Project>{e8c37dff-ca26-4303-ad5f-d18d8ca08148}</Project>
+      <Name>Bossinfo.HealthPlatform.UtilityTools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
