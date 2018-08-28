@@ -61,6 +61,11 @@ namespace Bossinfo.HealthPlatform.DBService
             }
         }
 
+        /// <summary>
+        /// 取得會員資料
+        /// </summary>
+        /// <param name="IDNo">身分證字號</param>
+        /// <returns></returns>
         public static Models.Entity.MemberInfo GetMemberInfoByIDNo(string IDNo)
         {
             try

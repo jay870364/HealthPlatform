@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Bossinfo.HealthPlatform.Enums
 {
+    /// <summary>
+    /// 測量的項目型態
+    /// </summary>
     public enum ResultRemarkType
     {
         /// <summary>

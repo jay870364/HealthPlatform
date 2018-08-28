@@ -14,7 +14,7 @@
     <RootNamespace>Bossinfo.HealthPlatform</RootNamespace>
     <AssemblyName>Bossinfo.HealthPlatform</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -93,6 +93,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Device\TaiDoc.aspx" />
+    <Content Include="Device\TimeSync.aspx" />
+    <Content Include="Device\WebForm1.aspx" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -106,6 +109,7 @@
     <Content Include="Content\css\Default.css" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,6 +175,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\Unit.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -185,6 +190,27 @@
     <Compile Include="Device\IMVS.aspx.designer.cs">
       <DependentUpon>IMVS.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Device\TaiDoc.aspx.cs">
+      <DependentUpon>TaiDoc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Device\TaiDoc.aspx.designer.cs">
+      <DependentUpon>TaiDoc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Device\TimeSync.aspx.cs">
+      <DependentUpon>TimeSync.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Device\TimeSync.aspx.designer.cs">
+      <DependentUpon>TimeSync.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Device\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Device\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MInfo.aspx.cs">
       <DependentUpon>MInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -193,11 +219,16 @@
       <DependentUpon>MInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\APIDataSave.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bossinfo.HealthPlatform.DBService\Bossinfo.HealthPlatform.DBService.csproj">
       <Project>{6eff87e8-018c-48c7-b455-dacf5e837140}</Project>
       <Name>Bossinfo.HealthPlatform.DBService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bossinfo.HealthPlatform.Enums\Bossinfo.HealthPlatform.Enums.csproj">
+      <Project>{2f8edfde-36e6-4ae7-a069-60b85981931f}</Project>
+      <Name>Bossinfo.HealthPlatform.Enums</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bossinfo.HealthPlatform.Models\Bossinfo.HealthPlatform.Models.csproj">
       <Project>{c561ef48-3144-4c8e-8821-c0ddad8588f4}</Project>
@@ -231,7 +262,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55020</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55020/</IISUrl>
+          <IISUrl>http://localhost/Bossinfo.HealthPlatform</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

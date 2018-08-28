@@ -94,6 +94,20 @@ namespace Bossinfo.HealthPlatform.UtilityTools
             }
         }
 
+        public static double ConvertStrToDouble(string str)
+        {
+           
+            try
+            {
+                return Convert.ToDouble(str);
+            }
+            catch (Exception ex)
+            {
+                //log
+                return -999;
+            }
+
+        }
 
         /// <summary>
         /// 取得列舉的描述
@@ -182,11 +196,19 @@ namespace Bossinfo.HealthPlatform.UtilityTools
             return JsonConvert.SerializeObject(obj);
         }
 
-
-        public static InitialResultRemark ConvertJSONToObj(string json)
+        /// <summary>
+        /// 將評語資料轉換成物件
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static InitialResultRemark ResultRemarkConvert(string json)
         {
-            var x = Regex.Replace(json, @"\n|\r", "");
-            return JsonConvert.DeserializeObject<InitialResultRemark>(x);
+            return JsonConvert.DeserializeObject<InitialResultRemark>(Regex.Replace(json, @"\n|\r", ""));
+        }
+
+        public static T JSONConvertToObj<T>(string json)
+        {
+            return JsonConvert.DeserializeObject<T>(Regex.Replace(json, @"\n|\r", ""));
         }
     }
 }

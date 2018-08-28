@@ -13,13 +13,14 @@ namespace Bossinfo.HealthPlatform.Models.Entity
         public long UID { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(20)]
         public string MemberIDNo { get; set; }
 
         [Required]
         [StringLength(4000)]
         public string MIData { get; set; }
 
+        [Required]
         public DateTime MIDate { get; set; }
     }
 }
