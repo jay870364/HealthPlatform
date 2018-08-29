@@ -1,27 +1,33 @@
-﻿body {
-    background-image: url("../images/bk.png"); 
-    background-repeat: no-repeat;
-    /* background: linear-gradient(to bottom,#207cca 74%,#7db9e8 100%); */
-     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+html{
+    align-content: center;
+}
+body {
+    font-size: 1vh;
+    margin:auto;
 }
 
 div {
-    border: 1px solid;
+    border: 0.1px solid;
+    position: relative;
 }
 #main {
-    margin-left: 4%;
-    margin-right: 20%;
-    width: 90%;
-    height: inherit;
-
-    
+    height:120rem;
+    margin:auto;
+    background-image: url("../images/bk.png");
+    background-repeat: no-repeat;
 }
 .container {
     color: rgb(19, 252, 19);
 }
 
 #headRow {
-    height: 13rem;
+    height: 13.4rem;
+}
+#bodyRow{
+    height: 59.5rem;
+}
+#footerRow{
+    height: 47.1rem;
 }
 
 #titleText {
@@ -34,26 +40,29 @@ div {
     vertical-align: middle;
     text-align: center;
     letter-spacing: 0.2rem;
+    
 }
 
 /* ROW0 */
-
+#BMI{
+    
+}
 #BMITitle {
     font-size: 2rem;
-    margin-top: 15%;
-    margin-left: 54%;
+
+    width: min-content;
 }
 
 #BMIValue {
     font-size: 4rem;
-    margin-top: 0%;
-    margin-left: 54%;
+
+    width: min-content;
 }
 
 #BMIChartSqur {
     font-size: 4rem;
-    margin-top: 0%;
-    margin-left: 5%;
+
+    width: min-content;
 }
 
 /* ROW1 */

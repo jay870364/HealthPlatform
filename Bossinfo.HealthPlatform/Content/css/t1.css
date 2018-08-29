@@ -1,0 +1,120 @@
+html {
+    /* font-size: 100 vh; */
+    align-content: center;
+}
+
+body {
+
+}
+.content{
+    width: 1080px;
+    height: 1920px;
+    margin:auto;
+    /* background-size: cover; */
+}
+div {
+    /* border: 1px solid; */
+    position: relative;
+}
+#img{
+    width:100%;
+}
+#main {
+    position: relative;
+
+}
+
+#titleText {
+    position: relative;
+    top: 60px;
+    color: white;
+    font-family: Microsoft JhengHei;
+    font-weight: bold;
+    font-size: 5rem;
+    vertical-align: middle;
+    text-align: center;
+    letter-spacing: 0.2rem;
+}
+
+.valueDiv {
+    /* border: 1px solid; */
+    position: relative;
+    width: min-content;
+}
+
+#headRow {
+    height: 214px;
+}
+
+#bodyRow {
+    color: red;
+    height: 950px;
+    width: 980px;
+    left: 20px;
+}
+
+#footer {
+    height: 756px;
+}
+
+#BMIValue {
+    font-size: 4rem;
+    top:4.5rem;
+    left: 11.2rem;
+}
+
+#HeightValue {
+    font-size: 4.5rem;
+    top: 17.4rem;
+    left: 4.6rem;
+}
+
+#WeightValue {
+    font-size: 4.5rem;
+    top: 4.2rem;
+    left: 45.9rem;
+}
+
+#LowBP {
+    font-size: 4.5rem;
+    top: 13.3rem;
+    left: 44.4rem;
+}
+
+#LowBPUnit {
+    font-size: 1.5rem;
+    top: 9.8rem;
+    left: 52rem;
+}
+
+#HighBP {
+    font-size: 4.5rem;
+    top: 8.8rem;
+    left: 44.4rem;
+}
+
+#HighBPUnit {
+    font-size: 1.5rem;
+    top: 5.2rem;
+    left: 52rem;
+}
+
+
+#HeartBeats {
+    font-size: 4.5rem;
+    float: right;
+    top:6.6rem;
+    right: 47rem;
+    
+    
+}
+
+#BodyTemperture {
+    font-size: 4.5rem;
+    float: right;
+    top:9.8rem;
+    
+}
+.hide {
+    display: none;
+}

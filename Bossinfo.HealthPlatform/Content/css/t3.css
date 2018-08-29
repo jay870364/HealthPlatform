@@ -1,0 +1,103 @@
+body {
+    font-family: Microsoft JhengHei;
+    /* font-weight: bold; */
+}
+
+.container {
+    position: relative;
+}
+
+#BMI {
+    position: absolute;
+    top: 15.5%;
+    left: 21%;
+    font-size: 5.4vw;
+    color: white;
+}
+
+#HeightValue {
+    position: right;
+    text-align: center;
+    top: 31.2%;
+    left: 10.5%;
+    font-size: 6vw;
+    color: #23a7c5;
+}
+
+#WeightValue {
+    position: right;
+    text-align: center;
+    top: 26%;
+    right: 15%;
+    left: 68.5%;
+    font-size: 6vw;
+    color: #f9af2b;
+}
+
+#LowBP {
+    position: right;
+    text-align: center;
+    top: 39.2%;
+    right: 19%;
+    left: 68.5%;
+    font-size: 6vw;
+    color: #f98846;
+}
+
+#HighBP {
+    position: right;
+    text-align: center;
+    top: 42.8%;
+    right: 19%;
+    left: 68.5%;
+    font-size: 6vw;
+    color: #f98846;
+}
+
+#LowBPUnit {
+    position: right;
+    text-align: center;
+    top: 41.6%;
+    left: 81%;
+    font-size: 2vw;
+    color: #f98846;
+}
+
+#HighBPUnit {
+    position: right;
+    text-align: center;
+    top: 45.2%;
+    left: 81%;
+    font-size: 2vw;
+    color: #f98846;
+}
+
+#HeartBeat {
+    position: absolute;
+    text-align: center;
+    top: 48.5%;
+    left: 14%;
+    font-size: 6vw;
+    color: #243b47;
+}
+
+#BodyTemperture {
+    position: absolute;
+    text-align: center;
+    top: 51.2%;
+    left: 70.5%;
+    font-size: 6vw;
+    color: #8bc6bc;
+}
+
+.valueDiv {
+    position: absolute;
+}
+
+div {
+    /* border: 0.1px solid; */
+}
+
+.hide {
+    display: none;
+}
