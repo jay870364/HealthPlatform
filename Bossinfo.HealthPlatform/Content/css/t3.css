@@ -16,7 +16,7 @@ body {
 }
 
 #HeightValue {
-    position: right;
+    position: absolute;
     text-align: center;
     top: 31.2%;
     left: 10.5%;
@@ -25,7 +25,7 @@ body {
 }
 
 #WeightValue {
-    position: right;
+    position: absolute;
     text-align: center;
     top: 26%;
     right: 15%;
@@ -35,7 +35,7 @@ body {
 }
 
 #LowBP {
-    position: right;
+    position: absolute;
     text-align: center;
     top: 39.2%;
     right: 19%;
@@ -45,7 +45,7 @@ body {
 }
 
 #HighBP {
-    position: right;
+    position: absolute;
     text-align: center;
     top: 42.8%;
     right: 19%;
@@ -55,7 +55,7 @@ body {
 }
 
 #LowBPUnit {
-    position: right;
+    position: absolute;
     text-align: center;
     top: 41.6%;
     left: 81%;
@@ -64,7 +64,7 @@ body {
 }
 
 #HighBPUnit {
-    position: right;
+    position: absolute;
     text-align: center;
     top: 45.2%;
     left: 81%;
@@ -89,7 +89,14 @@ body {
     font-size: 6vw;
     color: #8bc6bc;
 }
-
+#Remark{
+    position: absolute;
+    text-align: left;
+    top: 65%;
+    left: 15%;
+    font-size: 4vw;
+    color: white;
+}
 .valueDiv {
     position: absolute;
 }

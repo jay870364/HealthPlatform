@@ -9,21 +9,26 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div style="text-align:center;">
+        <div style="text-align: center;">
             <div class="container">
-                <div style="z-index:-100;"><img src="./Content/images/bk_ok.png" style="width:100%" /></div>
-                <div class="box">
-                    <div id="BMI" class="content">233</div>
-                    <div id="HeightValue" class=" valueDiv">180.9</div>
-                    <div id="WeightValue" class=" valueDiv">78.0</div>
-                    <div id="LowBP" class=" valueDiv">110</div>
-                    <div id="LowBPUnit" class=" valueDiv">mmHG</div>
-                    <div id="HighBP" class=" valueDiv">070</div>
-                    <div id="HighBPUnit" class=" valueDiv">mmHG</div>
-                    <div id="HeartBeat" class=" valueDiv">700</div>
-                    <div id="BodyTemperture" class=" valueDiv">36.5</div>
+                <div style="z-index: -100;">
+                    <img src="./Content/images/bk_ok.png" style="width: 100%" />
                 </div>
-                <div id="Remark"></div>
+                <div class="box">
+                    <div id="BMI" class="content"><%= htmlBMI %> </div>
+                    <div id="HeightValue" class=" valueDiv"><%=htmlHeight %></div>
+                    <div id="WeightValue" class=" valueDiv"><%=htmlWeight %></div>
+                    <div id="LowBP" class=" valueDiv"><%=htmlLowBP %></div>
+                    <div id="LowBPUnit" class=" valueDiv">mmHG</div>
+                    <div id="HighBP" class=" valueDiv"><%=htmlHighBP %></div>
+                    <div id="HighBPUnit" class=" valueDiv">mmHG</div>
+                    <div id="HeartBeat" class=" valueDiv"><%=htmlHeartBeat %></div>
+                    <div id="BodyTemperture" class=" valueDiv"><%=htmlBodyTemperture %></div>
+                </div>
+                <div id="Remark">
+                                <%=htmlBMIRemark %><br>
+                                <%=htmlHPRemark %>
+                </div>
             </div>
         </div>
         <script src="Scripts/jquery-1.10.2.min.js"></script>

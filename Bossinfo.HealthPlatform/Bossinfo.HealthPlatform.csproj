@@ -93,6 +93,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\t3.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\bk_ok.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Device\TaiDoc.aspx" />
     <Content Include="Device\TimeSync.aspx" />
     <Content Include="Device\WebForm1.aspx" />

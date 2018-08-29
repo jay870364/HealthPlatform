@@ -18,6 +18,8 @@ namespace Bossinfo.HealthPlatform
         public string htmlHighBP = "";
         public string htmlHeartBeat = "";
         public string htmlBodyTemperture = "";
+        public string htmlHPRemark = "";
+        public string htmlBMIRemark = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -52,15 +54,18 @@ namespace Bossinfo.HealthPlatform
             //收縮壓
             var tmpHP_Diastolic = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.HBP, ToolLibs.ConvertStrToDouble(mIData.BP_Diastolic));
 
+
             System.Diagnostics.Debug.WriteLine($"{tmpHP_Diastolic.Message}\t{tmpHP_Diastolic.Level}");
 
             //脈博
             var tmpHeatRate = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.HR, ToolLibs.ConvertStrToDouble(mIData.HeatRate));
-
+            var HPRemark = $"{tmpHeatRate.Level}，{tmpHeatRate.Message}";
             System.Diagnostics.Debug.WriteLine($"{tmpHeatRate.Message}\t{tmpHeatRate.Level}");
 
             //BMI
             var tmpBMI = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.BMI, ToolLibs.ConvertStrToDouble(mIData.BMI));
+
+            var BMIRemark = tmpBMI.Message == "正常" ? $"{tmpBMI.Message}" : $"{tmpBMI.Message}需多注意飲食管理";
 
             System.Diagnostics.Debug.WriteLine($"{tmpBMI.Message}\t{tmpBMI.Level}");
 
@@ -78,7 +83,9 @@ namespace Bossinfo.HealthPlatform
 
             htmlBodyTemperture = mIData.BodyTemperture;
 
-            
+            htmlBMIRemark = BMIRemark;
+
+            htmlHPRemark = HPRemark;
         }
 
         //Response.Write(measureInfo.MIData);
