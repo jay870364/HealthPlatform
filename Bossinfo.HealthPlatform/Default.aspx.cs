@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bossinfo.HealthPlatform.UtilityTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,17 @@ namespace Bossinfo.HealthPlatform
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DBService.ResultRemark.InitialResultRemark();
+            Log log = new Log();
+            if (DBService.ResultRemark.InitialResultRemark())
+            {
+                log.Info("DB初始化成功");
+                Response.Write("建立成功");
+            }
+            else
+            {
+                log.Info("連線正常");
+                Response.Write("Status：200");
+            }
         }
     }
 }

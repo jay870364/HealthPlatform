@@ -1,100 +1,111 @@
 ﻿body {
-    background-image: url("../images/bk.png"); 
-    background-repeat: no-repeat;
-    /* background: linear-gradient(to bottom,#207cca 74%,#7db9e8 100%); */
-     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}
-
-div {
-    border: 1px solid;
-}
-#main {
-    margin-left: 4%;
-    margin-right: 20%;
-    width: 90%;
-    height: inherit;
-
-    
-}
-.container {
-    color: rgb(19, 252, 19);
-}
-
-#headRow {
-    height: 13rem;
-}
-
-#titleText {
-    padding-top: 6%;
-    padding-left: 3%;
-    color: white;
     font-family: Microsoft JhengHei;
-    font-weight: bold;
-    font-size: 5rem;
-    vertical-align: middle;
-    text-align: center;
-    letter-spacing: 0.2rem;
+    /* font-weight: bold; */
 }
 
-/* ROW0 */
-
-#BMITitle {
-    font-size: 2rem;
-    margin-top: 15%;
-    margin-left: 54%;
+.container {
+    position: relative;
 }
 
-#BMIValue {
-    font-size: 4rem;
-    margin-top: 0%;
-    margin-left: 54%;
-}
-
-#BMIChartSqur {
-    font-size: 4rem;
-    margin-top: 0%;
-    margin-left: 5%;
-}
-
-/* ROW1 */
-
-#HeightRow {
-    font-size: 3rem;
-    margin-left: 6%;
-}
-
-#HeightTitle {
-    margin-top: 32%;
-    margin-left: 0%;
+#BMI {
+    position: absolute;
+    top: 15.5%;
+    left: 21%;
+    font-size: 5.4vw;
+    color: white;
 }
 
 #HeightValue {
-    font-size: 4.2rem;
-    margin-top: 6%;
-    margin-left: 0%;
-    float: left;
+    position: absolute;
+    text-align: center;
+    top: 31.2%;
+    left: 10.5%;
+    font-size: 6vw;
+    color: #23a7c5;
 }
 
-#HeightUnit {
-    font-size: 2.7rem;
-    margin-top: 16%;
-margin-left:2%;
-    float: left;
+#WeightValue {
+    position: absolute;
+    text-align: center;
+    top: 26%;
+    right: 15%;
+    left: 68.5%;
+    font-size: 6vw;
+    color: #f9af2b;
 }
 
-#WeightRow {
-    font-size: 3rem;
-    margin-top: 10%;
-    margin-left: 20%;
+#LowBP {
+    position: absolute;
+    text-align: center;
+    top: 39.2%;
+    right: 19%;
+    left: 68.5%;
+    font-size: 6vw;
+    color: #f98846;
 }
 
-#WeightTitle {
-    font-size: 3rem;
-    margin-top: 10%;
-    margin-left: 20%;
+#HighBP {
+    position: absolute;
+    text-align: center;
+    top: 42.8%;
+    right: 19%;
+    left: 68.5%;
+    font-size: 6vw;
+    color: #f98846;
 }
 
+#LowBPUnit {
+    position: absolute;
+    text-align: center;
+    top: 41.6%;
+    left: 81%;
+    font-size: 2vw;
+    color: #f98846;
+}
 
+#HighBPUnit {
+    position: absolute;
+    text-align: center;
+    top: 45.2%;
+    left: 81%;
+    font-size: 2vw;
+    color: #f98846;
+}
+
+#HeartBeat {
+    position: absolute;
+    text-align: center;
+    top: 48.5%;
+    left: 14%;
+    font-size: 6vw;
+    color: #243b47;
+}
+
+#BodyTemperture {
+    position: absolute;
+    text-align: center;
+    top: 51.2%;
+    left: 70.5%;
+    font-size: 6vw;
+    color: #8bc6bc;
+}
+
+#Remark {
+    position: absolute;
+    text-align: left;
+    top: 65%;
+    left: 15%;
+    font-size: 4vw;
+    color: white;
+}
+
+.valueDiv {
+    position: absolute;
+}
+
+div {
+    /* border: 0.1px solid; */
+}
 
 .hide {
     display: none;

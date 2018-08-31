@@ -66,8 +66,9 @@ namespace Bossinfo.HealthPlatform.DBService
             }
             catch (DbEntityValidationException ex)
             {
+                new Log().Error($"產生與資料庫相關的錯誤\n" +
+                $"Data：{ex.ToString()}");
                 return result;
-                //log
             }
         }
 
@@ -88,7 +89,8 @@ namespace Bossinfo.HealthPlatform.DBService
             }
             catch (DbEntityValidationException ex)
             {
-                //log
+                new Log().Error($"產生與資料庫相關的錯誤\n" +
+                                $"Data：{ex.ToString()}");
                 return result;
             }
         }

@@ -20,13 +20,35 @@ namespace Bossinfo.HealthPlatform
         public string htmlBodyTemperture = "";
         public string htmlHPRemark = "";
         public string htmlBMIRemark = "";
-
+        public string htmlAlertStatus = "N";
+        public Log log = new Log();
         protected void Page_Load(object sender, EventArgs e)
         {
             var uid = Request["UID"];
             System.Diagnostics.Debug.WriteLine($"IM\t{uid}");
+            log.Info($"Minfo.aspx\tUid：{uid}");
 
-            PrepareData(uid);
+            if (string.IsNullOrEmpty(uid))
+            {
+
+                log.Info($"Minfo.aspx\tUid是空值：{uid}");
+                htmlAlertStatus = "Y";
+            }
+            else
+            {
+                try
+                {
+                    log.Info($"Minfo.aspx\tUid：{uid}");
+                    PrepareData(uid);
+                    htmlAlertStatus = "N";
+                }
+                catch (Exception ex)
+                {
+                    new Log().Error($"Minfo載入異常\n" +
+                                    $"Data：{ex.ToString()}");
+                    htmlAlertStatus = "Y";
+                }
+            }
         }
         public void PrepareData(string uid)
         {
@@ -35,11 +57,14 @@ namespace Bossinfo.HealthPlatform
             //將Request回來的UID解密
             var longUid = Convert.ToInt64(ToolLibs.DecryptDES(uid, Config.DESKey, Config.DESIV));
 
+            log.Info($"取得檢測資料\tUid：{longUid}");
+
             //取得檢測資料
             var measureInfo = DBService.MeasureInfo.GetMeasureInfoByUID(longUid);
 
-            System.Diagnostics.Debug.WriteLine($"Data\t{measureInfo.MIData}");
+            log.Trace($"Data\t{measureInfo.MIData}");
 
+            log.Info($"取得會員資料\t身分證：{measureInfo.MemberIDNo}");
             //取得會員資料
             var memberInfo = DBService.MemberInfo.GetMemberInfoByIDNo(measureInfo.MemberIDNo);
 
@@ -49,25 +74,25 @@ namespace Bossinfo.HealthPlatform
             //舒張壓
             var tmpBP_Systolic = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.LBP, ToolLibs.ConvertStrToDouble(mIData.BP_Systolic));
 
-            System.Diagnostics.Debug.WriteLine($"{tmpBP_Systolic.Message}\t{tmpBP_Systolic.Level}");
+            log.Info($"舒張壓 Remark\t{tmpBP_Systolic.Message}\t{tmpBP_Systolic.Level}");
 
             //收縮壓
             var tmpHP_Diastolic = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.HBP, ToolLibs.ConvertStrToDouble(mIData.BP_Diastolic));
 
 
-            System.Diagnostics.Debug.WriteLine($"{tmpHP_Diastolic.Message}\t{tmpHP_Diastolic.Level}");
+            log.Info($"收縮壓 Remark\t{tmpHP_Diastolic.Message}\t{tmpHP_Diastolic.Level}");
 
             //脈博
             var tmpHeatRate = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.HR, ToolLibs.ConvertStrToDouble(mIData.HeatRate));
             var HPRemark = $"{tmpHeatRate.Level}，{tmpHeatRate.Message}";
-            System.Diagnostics.Debug.WriteLine($"{tmpHeatRate.Message}\t{tmpHeatRate.Level}");
+            log.Info($"脈博 Remark\t{tmpHeatRate.Message}\t{tmpHeatRate.Level}");
 
             //BMI
             var tmpBMI = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.BMI, ToolLibs.ConvertStrToDouble(mIData.BMI));
 
             var BMIRemark = tmpBMI.Message == "正常" ? $"{tmpBMI.Message}" : $"{tmpBMI.Message}需多注意飲食管理";
 
-            System.Diagnostics.Debug.WriteLine($"{tmpBMI.Message}\t{tmpBMI.Level}");
+            log.Info($"BMI Remark\t{tmpBMI.Message}\t{tmpBMI.Level}");
 
             htmlBMI = mIData.BMI;
 
@@ -86,9 +111,18 @@ namespace Bossinfo.HealthPlatform
             htmlBMIRemark = BMIRemark;
 
             htmlHPRemark = HPRemark;
+
+            log.Info($"網頁帶入的資料BMI：{htmlBMI}\t" +
+                $"身高：{htmlHeight}\t" +
+                $"體重：{htmlWeight}\t" +
+                $"舒張壓：{htmlLowBP}\t" +
+                $"收縮壓：{htmlHighBP}\t" +
+                $"脈搏：{htmlHeartBeat}\t" +
+                $"體溫：{htmlBodyTemperture}\t" +
+                $"BMI註記：{htmlBMIRemark}\t" +
+                $"血壓註記：{htmlHPRemark}");
         }
 
-        //Response.Write(measureInfo.MIData);
     }
 
 }

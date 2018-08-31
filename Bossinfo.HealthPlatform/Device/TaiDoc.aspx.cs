@@ -14,11 +14,22 @@ namespace Bossinfo.HealthPlatform.Device
     public partial class TaiDoc : System.Web.UI.Page
     {
         //private static readonly ILog LOG = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        Log log = new Log();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if(Request.InputStream.Length<=0)
+                {
+                    Response.Clear();
+                    Response.ContentType = "text/plain";
+                    Response.StatusCode = 400;
+                    Response.TrySkipIisCustomErrors = true;
+                    Response.Write("4001 資料內容格式有誤或超出正常範圍");
+                    Response.End();
+                    log.Info("4001 資料內容格式有誤或超出正常範圍");
+                    return;
+                }
                 string documentContents;
                 using (Stream receiveStream = Request.InputStream)
                 {
@@ -51,8 +62,9 @@ namespace Bossinfo.HealthPlatform.Device
                     result.Feedback = fbl.ToList();
                 var settings = new JsonSerializerSettings() { ContractResolver = new NullToEmptyStringResolver() };
                 string json = JsonConvert.SerializeObject(result, settings);
-                //LOG.Info(json);
 
+                log.Info($"TaiDoc解析完成的字串", json);
+                
                 #region APIDataSave
 
 
@@ -60,11 +72,12 @@ namespace Bossinfo.HealthPlatform.Device
 
                 if (string.IsNullOrEmpty(dbIDNo))
                 {
+                    log.Info($"新建會員資料");
                     //儲存該筆資料
                     var memberInfo = new Models.Entity.MemberInfo();
                     //取得系統ID
                     var tmpID = ToolLibs.GetDateTimeNowDefaultString();
-
+                    log.Info($"新建的會員資料ID：{tmpID}");
                     #region MemberInfo
 
                     memberInfo.ID = tmpID;
@@ -80,7 +93,7 @@ namespace Bossinfo.HealthPlatform.Device
                     memberInfo.CreateDate = DateTime.Now;
 
                     #endregion
-
+                    log.Trace("新增會員資料", memberInfo);
                     DBService.MemberInfo.InsertMemberInfo(memberInfo);
                 }
 
@@ -105,7 +118,7 @@ namespace Bossinfo.HealthPlatform.Device
                 //組出網址
                 var encryptCodeURL = $"{Config.BaseURL}MInfo.aspx?UID={encryptID}";
 
-                System.Diagnostics.Debug.WriteLine($"IMVS\t{encryptCodeURL}");
+                log.Info($"回傳的網址", encryptCodeURL);
 
                 #endregion
 
@@ -115,6 +128,8 @@ namespace Bossinfo.HealthPlatform.Device
                 Response.StatusCode = 200;
                 Response.Write("200");
                 Response.End();
+
+                log.Info($"回傳的結果，Data：200");
             }
         }
 

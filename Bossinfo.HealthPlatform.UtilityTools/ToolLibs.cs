@@ -14,7 +14,7 @@ namespace Bossinfo.HealthPlatform.UtilityTools
 {
     public class ToolLibs
     {
-
+       
         /// <summary>
         /// 此專案預設格式為 yyyyMMddhhmmssffffff
         /// </summary>
@@ -103,7 +103,8 @@ namespace Bossinfo.HealthPlatform.UtilityTools
             }
             catch (Exception ex)
             {
-                //log
+                new Log().Error($"數值轉換錯誤，傳入的數值：{str}" +
+                    $"Exception：{ex.ToString()}");
                 return -999;
             }
 

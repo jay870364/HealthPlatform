@@ -19,24 +19,38 @@ namespace Bossinfo.HealthPlatform.Device
 {
     public partial class IMVS : System.Web.UI.Page
     {
+        Log log = new Log();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var dbContext = new DBService.HealthPaltformContext();
 
             var plainText = GetDocumentContents(new HttpRequestWrapper(this.Request));
+
+            if (string.IsNullOrWhiteSpace(plainText))
+            {
+                log.Info($"收到的資料為空\n" +
+                $"Data：{JsonConvert.SerializeObject(plainText)}\n");
+
+                Response.Write(JsonConvert.SerializeObject(new { ResultCode = 404, ErrorMessage = $"轉換失敗，傳入的資料為空 Data：{plainText}" }));
+                return;
+            }
+
+            log.Info($"開始解析資料，Data：{plainText}");
             var MIData = JsonConvert.DeserializeObject<MIData>(plainText);
 
+            log.Info($"檢查是否存在會員資料：{MIData.Member_IDNo}");
             var dbIDNo = DBService.MemberInfo.QueryMemberInfoByIDNo(MIData.Member_IDNo);
+            log.Trace($"回傳的會員資料UID", dbIDNo);
 
             try
             {
                 if (string.IsNullOrEmpty(dbIDNo))
                 {
+                    log.Info($"新建會員資料");
                     //儲存該筆資料
                     var memberInfo = new MemberInfo();
                     //取得系統ID
                     var tmpID = ToolLibs.GetDateTimeNowDefaultString();
-
+                    log.Info($"新建的會員資料ID：{tmpID}");
                     #region MemberInfo
 
                     memberInfo.ID = tmpID;
@@ -52,7 +66,7 @@ namespace Bossinfo.HealthPlatform.Device
                     memberInfo.CreateDate = DateTime.Now;
 
                     #endregion
-
+                    log.Trace("新增會員資料", memberInfo);
                     DBService.MemberInfo.InsertMemberInfo(memberInfo);
                 }
 
@@ -77,30 +91,30 @@ namespace Bossinfo.HealthPlatform.Device
                 //組出網址
                 var encryptCodeURL = $"{Config.BaseURL}MInfo.aspx?UID={encryptID}";
 
-                System.Diagnostics.Debug.WriteLine($"IMVS\t{encryptCodeURL}");
+                log.Info($"回傳的網址",encryptCodeURL);
 
+                var result = string.Empty;
                 if (encryptCodeURL == "")
                 {
-                    Response.Write(JsonConvert.SerializeObject(new { ResultCode = 404, ErrorMessage = "轉換失敗" }));
+                    result = JsonConvert.SerializeObject(new { ResultCode = 404, ErrorMessage = "轉換失敗" });
+                    Response.Write(result);
+
                 }
                 else
                 {
                     Response.Write(JsonConvert.SerializeObject(new { ResultCode = 200, Url = encryptCodeURL }));
                 }
+                log.Info($"回傳的結果，Data：{result}");
             }
             catch (Exception ex)
             {
+                log.Error($"資料轉換錯誤\n" +
+                                $"Data：{JsonConvert.SerializeObject(MIData)}\n" +
+                                $"Exception：{ex.ToString()}");
+
                 Response.Write(JsonConvert.SerializeObject(new { ResultCode = 404, ErrorMessage = $"{ex.ToString()}" }));
             }
 
-
-
-
-            ////轉換成QRCode
-            //var qrCodeStream = QRCodeGen(qrCodeURL);
-            //Response.ClearContent();
-            //Response.ContentType = "image/Png";
-            //Response.BinaryWrite(qrCodeStream.ToArray());
         }
 
 

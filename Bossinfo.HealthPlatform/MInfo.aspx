@@ -5,7 +5,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Test Bootstrap</title>
-    <link href="Content/css/t3.css" rel="stylesheet" />
+    <link href="Content/css/default.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -26,13 +27,18 @@
                     <div id="BodyTemperture" class=" valueDiv"><%=htmlBodyTemperture %></div>
                 </div>
                 <div id="Remark">
-                                <%=htmlBMIRemark %><br>
-                                <%=htmlHPRemark %>
+                    <%=htmlBMIRemark %><br>
+                    <%=htmlHPRemark %>
                 </div>
             </div>
         </div>
-        <script src="Scripts/jquery-1.10.2.min.js"></script>
-        <script src="Scripts/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                if ('<%= htmlAlertStatus%>' == 'Y')
+                    alert('查無資料');
+            });
+        </script>
+        
     </form>
 </body>
 </html>

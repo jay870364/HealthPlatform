@@ -4,6 +4,7 @@ using Bossinfo.HealthPlatform.Models;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
+using Bossinfo.HealthPlatform.UtilityTools;
 
 namespace Bossinfo.HealthPlatform.DBService
 {
@@ -28,8 +29,9 @@ namespace Bossinfo.HealthPlatform.DBService
             }
             catch (DbEntityValidationException ex)
             {
+                new Log().Error($"產生與資料庫相關的錯誤\n" +
+                $"Data：{ex.ToString()}");
                 return -999;
-                //log
             }
         }
 
@@ -51,7 +53,8 @@ namespace Bossinfo.HealthPlatform.DBService
             }
             catch (DbEntityValidationException ex)
             {
-                //log
+                new Log().Error($"產生與資料庫相關的錯誤\n" +
+                                $"Data：{ex.ToString()}");
                 return new Models.Entity.MeasureInfo();
             }
         }
