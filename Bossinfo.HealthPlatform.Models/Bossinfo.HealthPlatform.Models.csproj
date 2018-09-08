@@ -54,6 +54,7 @@
     <Compile Include="Entity\MeasureInfo.cs" />
     <Compile Include="Entity\MemberInfo.cs" />
     <Compile Include="Entity\ResultRemark.cs" />
+    <Compile Include="TaiDoc\TaiDocTransResult.cs" />
     <Compile Include="TaiDoc\Feedback.cs" />
     <Compile Include="TaiDoc\TaiDocDataType.cs" />
     <Compile Include="TaiDoc\TaiDocModel.cs" />

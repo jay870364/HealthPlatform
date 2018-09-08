@@ -101,7 +101,6 @@
     </Content>
     <Content Include="Device\TaiDoc.aspx" />
     <Content Include="Device\TimeSync.aspx" />
-    <Content Include="Device\WebForm1.aspx" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -173,7 +172,10 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Test.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -214,13 +216,6 @@
     <Compile Include="Device\TimeSync.aspx.designer.cs">
       <DependentUpon>TimeSync.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Device\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Device\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="MInfo.aspx.cs">
       <DependentUpon>MInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -230,6 +225,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\APIDataSave.cs" />
+    <Compile Include="Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bossinfo.HealthPlatform.DBService\Bossinfo.HealthPlatform.DBService.csproj">
