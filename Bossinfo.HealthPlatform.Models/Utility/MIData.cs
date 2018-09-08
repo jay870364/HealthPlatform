@@ -125,6 +125,6 @@ namespace Bossinfo.HealthPlatform.Models.Utility
         /// <summary>
         /// 來源內部序號
         /// </summary>
-        public decimal Source_SN { get; set; }
+        public int Source_SN { get; set; }
     }
 }
