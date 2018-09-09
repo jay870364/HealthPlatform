@@ -15,6 +15,30 @@
     color: white;
 }
 
+#BMI_Dot {
+    position: absolute;
+    top: 15.5%;
+    /*min 38 max 81.3*/
+    left: 38%;
+    font-size: 1vw;
+    color: black;
+}
+
+#BMI_Hr {
+    position: absolute;
+    top: 15.5%;
+    left: 38.5%;
+    width: 100%;
+    border-color:black;
+}
+.dot {
+    height: 1vw;
+    width: 1vw;
+    background-color: #000;
+    border-radius: 100%;
+    display: inline-block;
+}
+
 #HeightValue {
     position: absolute;
     text-align: center;
@@ -103,9 +127,9 @@
     position: absolute;
 }
 
-div {
-    /* border: 0.1px solid; */
-}
+/*div {
+     border: 0.1px solid; 
+}*/
 
 .hide {
     display: none;
