@@ -123,7 +123,16 @@
     font-size: 4vw;
     color: white;
 }
-
+#bot {
+    position: absolute;
+    left: 19.5%;
+    bottom: 16vw;
+}
+#bot_map {
+    position: absolute;
+    width: 61.5vw;
+    height:15vh;
+}
 
 .valueDiv {
     position: absolute;

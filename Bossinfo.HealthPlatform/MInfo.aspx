@@ -34,6 +34,9 @@
                     <%=htmlBMIRemark %><br />
                     <%=htmlHPRemark %>
                 </div>
+                <div id="bot" class="img">
+                    <map id = "bot_map" name="map"></map>
+                </div>
             </div>
         </div>
         <script>
@@ -62,34 +65,16 @@
                     }
                 }
 
-                 $('#BK_Img').mousemove(function (e) {
-                    var offset = $(this).offset();
-
-                    var ix = e.clientX - offset.left;
-                    var iy = e.clientY - offset.top;
-                    
-
-                    var w = (ix / fw > 0.19 && ix / fw < 0.8) ? true : false;
-                    var l = (iy / lw > 0.67 && iy / lw < 0.82) ? true : false;
-                     if (w && l) {
-                         $('.myMOUSE').css('cursor', 'pointer');
-                     }
-                     else {
-                         $('.myMOUSE').css('cursor', 'default');
-                     }
+                 $('#bot_map').mouseover(function () {
+                    $('.myMOUSE').css('cursor', 'pointer');
                 });
 
-                $('#BK_Img').click(function (e) {
-                    var offset = $(this).offset();
+                $('#bot_map').mouseout(function () {
+                    $('.myMOUSE').css('cursor', 'default');
+                });
 
-                    var ix = e.clientX - offset.left;
-                    var iy = e.clientY - offset.top;
-
-                    var w = (ix / fw > 0.19 && ix / fw < 0.8) ? true : false;
-                    var l = (iy / lw > 0.67 && iy / lw < 0.82) ? true : false;
-                    if (w && l) {
-                        window.location.assign("AD.aspx");
-                    }
+                $('#bot_map').click(function () {
+                    window.location.assign('AD.aspx');
                 });
             });
 

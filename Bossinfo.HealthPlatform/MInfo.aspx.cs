@@ -11,7 +11,7 @@ namespace Bossinfo.HealthPlatform
 {
     public partial class MInfo : System.Web.UI.Page
     {
-        public string htmlBMI = "";
+        public string htmlBMI = "1";
         public string htmlHeight = "";
         public string htmlWeight = "";
         public string htmlLowBP = "";
