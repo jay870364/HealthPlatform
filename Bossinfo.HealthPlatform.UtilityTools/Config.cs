@@ -67,5 +67,13 @@ namespace Bossinfo.HealthPlatform.UtilityTools
                 return GetConfig("InitialDBData");
             }
         }
+
+        public static string RedirectUrl
+        {
+            get
+            {
+                return GetConfig("RedirectUrl");
+            }
+        }
     }
 }

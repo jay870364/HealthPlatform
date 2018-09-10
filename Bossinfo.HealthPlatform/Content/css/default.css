@@ -29,8 +29,9 @@
     top: 15.5%;
     left: 38.5%;
     width: 100%;
-    border-color:black;
+    border-color: black;
 }
+
 .dot {
     height: 1vw;
     width: 1vw;
@@ -123,10 +124,13 @@
     color: white;
 }
 
+
 .valueDiv {
     position: absolute;
 }
-
+.myMOUSE {
+    cursor: help;
+}
 /*div {
      border: 0.1px solid; 
 }*/

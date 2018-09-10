@@ -1,0 +1,44 @@
+﻿body {
+    font-family: Microsoft JhengHei;
+    /* font-weight: bold; */
+}
+
+.container {
+    position: relative;
+}
+
+#top {
+    position: absolute;
+    top: 16.2vw;
+}
+
+#bot {
+    position: absolute;
+    top: 68vw;
+}
+#bot_img {
+    width: 90vw;
+}
+
+#top_img {
+    width: 92vw;
+}
+
+.img {
+    position: absolute;
+    align-content: center;
+    top: 5%;
+    left: 3%;
+}
+
+.myMOUSE {
+    cursor: help;
+}
+
+/*div {
+     border: 0.1px solid; 
+}*/
+
+.hide {
+    display: none;
+}

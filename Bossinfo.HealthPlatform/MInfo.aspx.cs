@@ -11,8 +11,7 @@ namespace Bossinfo.HealthPlatform
 {
     public partial class MInfo : System.Web.UI.Page
     {
-        public string htmlBMI = "50";
-        public int htmlBMICHart = 0;
+        public string htmlBMI = "";
         public string htmlHeight = "";
         public string htmlWeight = "";
         public string htmlLowBP = "";
@@ -21,7 +20,8 @@ namespace Bossinfo.HealthPlatform
         public string htmlBodyTemperture = "";
         public string htmlHPRemark = "";
         public string htmlBMIRemark = "";
-        public string htmlAlertStatus = "N";
+        public string htmlAlertStatus = "Y";
+
         public Log log = new Log();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -112,6 +112,8 @@ namespace Bossinfo.HealthPlatform
             htmlBMIRemark = BMIRemark;
 
             htmlHPRemark = HPRemark;
+
+
 
             log.Info($"網頁帶入的資料BMI：{htmlBMI}\t" +
                 $"身高：{htmlHeight}\t" +
