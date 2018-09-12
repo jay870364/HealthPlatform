@@ -16,7 +16,7 @@
                     <img id="BK_Img" src="./Content/images/bk_ok.png" style="width: 100%" />
                 </div>
                 <div class="box">
-                    <div id="BMI" class="content"><%=htmlBMI %> </div>
+                    <div id="BMI" class="content hide"><%=htmlBMI %> </div>
                     <hr id="BMI_Hr" class="hide" />
                     <div id="BMI_Dot" class="content hide">
                         <span class="dot"></span>
@@ -35,7 +35,7 @@
                     <%=htmlHPRemark %>
                 </div>
                 <div id="bot" class="img">
-                    <map id = "bot_map" name="map"></map>
+                    <map id="bot_map" name="map"></map>
                 </div>
             </div>
         </div>
@@ -43,29 +43,35 @@
             $(document).ready(function () {
                 var fw = window.innerWidth;
                 var lw = window.innerHeight;
-                var y = <%=htmlBMI %>;
-                if ('<%=htmlAlertStatus%>' == 'Y') {
-                    alert('查無資料');
-                }
-                else {
-                    if (y > 0) {
-                        var x = (38 + (y * 0.926));
-                        var dot_location = x + '%';
-                        var l = (y * 0.917);
-                        var line_location = l + '%';
+                try {
+                    var y = $.isNumeric('<%=htmlBMI %>') ? '<%=htmlBMI %>' : '0';
 
-                        if (y <= 35) {
-                            $('#BMI_Dot').css('left', dot_location).removeClass('hide');
-                            $('#BMI_Hr').css('width', line_location).removeClass('hide');
-                        }
-                        else {
-                            $('#BMI_Dot').addClass('hide');
-                            $('#BMI_Hr').css('width', '43.2%');
+                    if ('<%=htmlAlertStatus%>' == 'Y') {
+
+                        alert('查無資料');
+                    }
+                    else {
+                        if (y > 0) {
+                            var x = (38 + (y * 0.926));
+                            var dot_location = x + '%';
+                            var l = (y * 0.917);
+                            var line_location = l + '%';
+
+                            $('#BMI').removeClass('hide');
+                            if (y <= 35) {
+                                $('#BMI_Dot').css('left', dot_location).removeClass('hide');
+                                $('#BMI_Hr').css('width', line_location).removeClass('hide');
+                            }
+                            else {
+                                $('#BMI_Dot').addClass('hide');
+                                $('#BMI_Hr').css('width', '43.2%');
+                            }
                         }
                     }
+                } catch (err) {
                 }
 
-                 $('#bot_map').mouseover(function () {
+                $('#bot_map').mouseover(function () {
                     $('.myMOUSE').css('cursor', 'pointer');
                 });
 
@@ -77,7 +83,6 @@
                     window.location.assign('AD.aspx');
                 });
             });
-
         </script>
 
     </form>

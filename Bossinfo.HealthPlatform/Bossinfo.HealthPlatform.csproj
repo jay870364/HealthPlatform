@@ -114,6 +114,7 @@
     <Content Include="Content\images\top.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="DESKey.aspx" />
     <Content Include="Device\TaiDoc.aspx" />
     <Content Include="Device\TimeSync.aspx" />
     <Content Include="NLog.config">
@@ -219,6 +220,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DESKey.aspx.cs">
+      <DependentUpon>DESKey.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DESKey.aspx.designer.cs">
+      <DependentUpon>DESKey.aspx</DependentUpon>
     </Compile>
     <Compile Include="Device\IMVS.aspx.cs">
       <DependentUpon>IMVS.aspx</DependentUpon>

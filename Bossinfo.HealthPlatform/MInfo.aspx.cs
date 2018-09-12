@@ -11,7 +11,7 @@ namespace Bossinfo.HealthPlatform
 {
     public partial class MInfo : System.Web.UI.Page
     {
-        public string htmlBMI = "1";
+        public string htmlBMI = "0";
         public string htmlHeight = "";
         public string htmlWeight = "";
         public string htmlLowBP = "";
@@ -41,7 +41,7 @@ namespace Bossinfo.HealthPlatform
                 {
                     log.Info($"Minfo.aspx\tUid：{uid}");
                     PrepareData(uid);
-                    htmlAlertStatus = "N";
+
                 }
                 catch (Exception ex)
                 {
@@ -85,7 +85,8 @@ namespace Bossinfo.HealthPlatform
 
             //脈博
             var tmpHeatRate = DBService.ResultRemark.GetRemarkByType(Enums.ResultRemarkType.HR, ToolLibs.ConvertStrToDouble(mIData.HeatRate));
-            var HPRemark = $"{tmpHeatRate.Level}，{tmpHeatRate.Message}";
+
+            var HPRemark = string.IsNullOrEmpty(tmpHeatRate.Level) ? $"{tmpHeatRate.Message}" : $"{tmpHeatRate.Level}，{tmpHeatRate.Message}";
             log.Info($"脈博 Remark\t{tmpHeatRate.Message}\t{tmpHeatRate.Level}");
 
             //BMI
@@ -113,7 +114,7 @@ namespace Bossinfo.HealthPlatform
 
             htmlHPRemark = HPRemark;
 
-
+            htmlAlertStatus = "N";
 
             log.Info($"網頁帶入的資料BMI：{htmlBMI}\t" +
                 $"身高：{htmlHeight}\t" +
