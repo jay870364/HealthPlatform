@@ -57,6 +57,7 @@
     <Compile Include="TaiDoc\Feedback.cs" />
     <Compile Include="TaiDoc\TaiDocDataType.cs" />
     <Compile Include="TaiDoc\TaiDocModel.cs" />
+    <Compile Include="TaiDoc\TaiDocResultData.cs" />
     <Compile Include="Utility\InitailResultRemark.cs" />
     <Compile Include="Utility\MIData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

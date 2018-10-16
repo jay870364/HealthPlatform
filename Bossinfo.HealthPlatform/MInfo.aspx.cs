@@ -22,6 +22,7 @@ namespace Bossinfo.HealthPlatform
         public string htmlBMIRemark = "";
         public string htmlAlertStatus = "Y";
 
+        public string htmlTitle = Config.HtmlTitle;
         public Log log = new Log();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,7 +46,7 @@ namespace Bossinfo.HealthPlatform
                 }
                 catch (Exception ex)
                 {
-                    new Log().Error($"Minfo載入異常\n" +
+                    log.Error($"Minfo載入異常\n" +
                                     $"Data：{ex.ToString()}");
                     htmlAlertStatus = "Y";
                 }

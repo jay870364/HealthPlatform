@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Test Bootstrap</title>
+    <title><%=htmlTitle %></title>
     <link href="Content/css/default.css" rel="stylesheet" />
     <script src="Scripts/jquery-3.0.0.min.js"></script>
 </head>

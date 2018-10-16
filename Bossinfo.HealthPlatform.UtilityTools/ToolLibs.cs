@@ -16,11 +16,11 @@ namespace Bossinfo.HealthPlatform.UtilityTools
     {
        
         /// <summary>
-        /// 此專案預設格式為 yyyyMMddhhmmssffffff
+        /// 此專案預設格式為 yyyyMMddHHmmssffffff
         /// </summary>
         /// <param name="defaultFormat">回傳日期的預設格式</param>
         /// <returns></returns>
-        public static string GetDateTimeNowDefaultString(string defaultFormat = "yyyyMMddhhmmssffffff")
+        public static string GetDateTimeNowDefaultString(string defaultFormat = "yyyyMMddHHmmssffffff")
         {
             return DateTime.Now.ToString(defaultFormat);
         }

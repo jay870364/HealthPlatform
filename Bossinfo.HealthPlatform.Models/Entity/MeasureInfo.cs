@@ -10,6 +10,7 @@ namespace Bossinfo.HealthPlatform.Models.Entity
     public partial class MeasureInfo
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long UID { get; set; }
 
         [Required]

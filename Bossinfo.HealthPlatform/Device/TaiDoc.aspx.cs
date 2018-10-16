@@ -8,6 +8,8 @@ using global::Bossinfo.HealthPlatform.Models.TaiDoc;
 using System.Reflection;
 using Bossinfo.HealthPlatform.UtilityTools;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Text;
 
 namespace Bossinfo.HealthPlatform.Device
 {
@@ -19,7 +21,7 @@ namespace Bossinfo.HealthPlatform.Device
         {
             if (!IsPostBack)
             {
-                if(Request.InputStream.Length<=0)
+                if (Request.InputStream.Length <= 0)
                 {
                     Response.Clear();
                     Response.ContentType = "text/plain";
@@ -30,6 +32,7 @@ namespace Bossinfo.HealthPlatform.Device
                     log.Info("4001 資料內容格式有誤或超出正常範圍");
                     return;
                 }
+                System.Diagnostics.Debug.WriteLine(JsonConvert.SerializeObject(Request.Headers));
                 string documentContents;
                 using (Stream receiveStream = Request.InputStream)
                 {
@@ -41,6 +44,7 @@ namespace Bossinfo.HealthPlatform.Device
                         //LOG.Debug(documentContents + Environment.NewLine);
                     }
                 }
+                System.Diagnostics.Debug.WriteLine(documentContents);
                 string[] str = documentContents.Replace("\r\n", "\n").Split('\n');
 
                 Dictionary<string, string> dic = str.Where(x => !x.StartsWith("Feedback")).ToDictionary(x => x.Split('=')[0].Trim(), x => x.Substring(x.IndexOf('=') + 1).Trim());
@@ -64,7 +68,7 @@ namespace Bossinfo.HealthPlatform.Device
                 string json = JsonConvert.SerializeObject(result, settings);
 
                 log.Info($"TaiDoc解析完成的字串", json);
-                
+
                 #region APIDataSave
 
 
@@ -123,6 +127,9 @@ namespace Bossinfo.HealthPlatform.Device
                 #endregion
 
 
+
+                TransferToTaiDoc(result);
+
                 Response.Clear();
                 Response.ContentType = "text/plain";
                 Response.StatusCode = 200;
@@ -131,6 +138,147 @@ namespace Bossinfo.HealthPlatform.Device
 
                 log.Info($"回傳的結果，Data：200");
             }
+        }
+
+        private string TransferToTaiDoc(TaiDocModel taiDocObj)
+        {
+            TaiDocResultData taiDocResultData = new TaiDocResultData();
+
+            var checkStatus = TransferTaiDocDataCheck(taiDocObj);
+
+            if (checkStatus)
+            {
+                if (string.IsNullOrEmpty(taiDocObj.Member_IDNo))
+                {
+                    log.Info($"請檢查身份證字號，IDNo：{taiDocObj.Member_IDNo}");
+                }
+                else if (string.IsNullOrEmpty(taiDocObj.DateTime.ToString()))
+                {
+                    log.Info($"請檢查量測日期，DateTime：{taiDocObj.DateTime}");
+                }
+                else
+                {
+                    var temperature = "";
+
+                    if (!string.IsNullOrWhiteSpace(taiDocObj.EarTemperture))
+                    {
+                        temperature = taiDocObj.EarTemperture;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(taiDocObj.BodyTemperture))
+                    {
+                        temperature = taiDocObj.BodyTemperture;
+                    }
+
+                    taiDocResultData.Data.Add(new Data
+                    {
+                        ID = taiDocObj.Member_IDNo,
+                        MeasureTime = taiDocObj.DateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Systolic = taiDocObj.BP_Systolic,
+                        Diastolic = taiDocObj.BP_Diastolic,
+                        Heartbeat = taiDocObj.HeartRate,
+                        Oxygen = taiDocObj.SPO2,
+                        Sugar = taiDocObj.BG,
+                        Temperature = string.IsNullOrWhiteSpace(temperature) ? null : Convert.ToDouble(temperature).ToString("f1")
+                    });
+
+                    log.Info($"轉換完成的資料：{JsonConvert.SerializeObject(taiDocResultData.Data)}");
+                }
+            }
+            else
+            {
+                taiDocResultData = null;
+                log.Info($"沒有符合的量測資料：{JsonConvert.SerializeObject(taiDocObj)}");
+            }
+            var redictor = $"{System.Configuration.ConfigurationManager.AppSettings["TaiDocResultURL"]}";
+            log.Info($"TaiDocResultURL：{redictor}");
+
+            HttpWebRequest httpWebRequest = WebRequest.Create($"{redictor}") as HttpWebRequest;
+            if (httpWebRequest != null)
+            {
+                byte[] array = new byte[0];
+                if (taiDocResultData != null)
+                {
+                    taiDocResultData.Success = true;
+                    string text = ToolLibs.ConvertObjToJSON(taiDocResultData);
+                    array = Encoding.UTF8.GetBytes(text);
+                    log.Info("Post過去的JSON", text);
+                }
+                else
+                {
+                    string s = ToolLibs.ConvertObjToJSON(new
+                    {
+                        Sucess = false,
+                        Message = "沒有符合的量測資料"
+                    });
+                    array = Encoding.UTF8.GetBytes(s);
+                }
+                httpWebRequest.Method = "POST";
+                httpWebRequest.KeepAlive = true;
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Timeout = 30000;
+                httpWebRequest.ContentLength = array.Length;
+                httpWebRequest.ContentLength = array.Length;
+                Stream requestStream = httpWebRequest.GetRequestStream();
+                requestStream.Write(array, 0, array.Length);
+                requestStream.Close();
+                string Message = "";
+                using (HttpWebResponse httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse)
+                {
+                    using (StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
+                    {
+                        Message = streamReader.ReadToEnd();
+                    }
+                }
+                requestStream.Close();
+                log.Info($"回傳的Response：{Message}");
+                return Message;
+            }
+            log.Info("Result資料異常");
+            return "Result資料異常";
+
+        }
+
+        private bool TransferTaiDocDataCheck(TaiDocModel taiDocObj)
+        {
+            var result = false;
+
+            //收縮壓
+            if (!string.IsNullOrEmpty(taiDocObj.BP_Systolic))
+            {
+                result = true;
+            }
+
+            //舒張壓
+            if (!string.IsNullOrEmpty(taiDocObj.BP_Diastolic))
+            {
+                result = true;
+            }
+
+            //心跳
+            if (!string.IsNullOrEmpty(taiDocObj.HeartRate))
+            {
+                result = true;
+            }
+            //血氧
+            if (!string.IsNullOrEmpty(taiDocObj.SPO2))
+            {
+                result = true;
+            }
+
+            //血糖
+            if (!string.IsNullOrEmpty(taiDocObj.BG))
+            {
+                result = true;
+            }
+
+            //體溫判斷
+            if (!string.IsNullOrEmpty(taiDocObj.BodyTemperture) || !string.IsNullOrEmpty(taiDocObj.EarTemperture))
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         private static T DictionaryToObject<T>(IDictionary<string, string> dict) where T : new()
